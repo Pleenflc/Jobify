@@ -1,16 +1,1 @@
-{
-  "error": {
-    "code": 403,
-    "message": "Method doesn't allow unregistered callers (callers without established identity). Please use API Key or other form of API consumer identity to call this API.",
-    "status": "PERMISSION_DENIED"
-  }
-}
-Response Q0: {
-    "error": {
-        "message": "Incorrect API key provided: AIzaSyDy***************************aY6g. You can find your API key at https://platform.openai.com/account/api-keys.",
-        "type": "invalid_request_error",
-        "param": null,
-        "code": "invalid_api_key"
-    }
-}
 
