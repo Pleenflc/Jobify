@@ -1,18 +1,15 @@
 <?php
 session_start();
 
-// Pastikan jawaban sudah ada
 if (!isset($_POST['answers'])) {
     die("No answers submitted.");
 }
 
 $answers = $_POST['answers'];
 
-// API Key Gemini
-$apiKey = "AIzaSyDcehlcjl1c9NRcLK3x-N9teWvLZ65tByk"; // ganti dengan API key kamu
+$apiKey = "";
 $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" . $apiKey;
 
-// Format prompt
 $questions = [
     "Tell me about yourself.",
     "Why do you want to work here?",
@@ -47,7 +44,6 @@ foreach ($answers as $i => $answer) {
     $context  = stream_context_create($options);
     $response = file_get_contents($url, false, $context);
 
-    // Debug: cek respon asli dari Gemini
     echo "<pre>DEBUG Gemini Response for Q".($i+1).":\n";
     var_dump($response);
     echo "</pre><hr>";
@@ -56,7 +52,7 @@ foreach ($answers as $i => $answer) {
         $resultData = json_decode($response, true);
 
         $feedback = $resultData['candidates'][0]['content']['parts'][0]['text'] ?? "No feedback received.";
-        $score = rand(10, 100); // sementara random, nanti kita bisa parsing dari feedback
+        $score = rand(10, 100);
 
         $evaluationResults[] = [
             "question" => $question,
@@ -67,10 +63,8 @@ foreach ($answers as $i => $answer) {
     }
 }
 
-// Simpan ke session
 $_SESSION['evaluation_results'] = $evaluationResults;
 
-// Debug: cek isi session
 echo "<pre>DEBUG SESSION:\n";
 print_r($_SESSION);
 echo "</pre>";
